@@ -1,1 +1,16 @@
-<p>navbar works!</p>
+<nav class="navbar">
+  <div class="navbar-brand">Recipe App</div>
+  <ul class="navbar-links">
+    <li><a routerLink="/">Home</a></li>
+    <li *ngIf="!authService.isLoggedIn()"><a routerLink="/login">Login</a></li>
+    <li *ngIf="!authService.isLoggedIn()">
+      <a routerLink="/signup">Signup</a>
+    </li>
+    <li *ngIf="authService.isLoggedIn()">
+      <a routerLink="/dashboard">Dashboard</a>
+    </li>
+    <li *ngIf="authService.isLoggedIn()">
+      <button (click)="logout()">Logout</button>
+    </li>
+  </ul>
+</nav>

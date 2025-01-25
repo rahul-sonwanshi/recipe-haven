@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class RecipeService {
-  private apiUrl = 'http://localhost:3000/api/recipes'; // The backend URL will add PROD and UAT later
+  private apiUrl = 'http://localhost:3000/api/recipes';
 
   constructor(private http: HttpClient) {}
 

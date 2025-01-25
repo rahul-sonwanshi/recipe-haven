@@ -1,6 +1,6 @@
-<div class="login-container">
-  <h2>Login</h2>
-  <form (ngSubmit)="login()">
+<div class="signup-container">
+  <h2>Sign Up</h2>
+  <form (ngSubmit)="signup()">
     <input
       type="text"
       placeholder="Username"
@@ -15,8 +15,8 @@
       name="password"
       required
     />
-    <button type="submit">Login</button>
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-    <p>Don't have an account? <a routerLink="/signup">Sign Up</a></p>
+    <button type="submit">Sign Up</button>
+    <p>Already have an account? <a routerLink="/login">Login</a></p>
   </form>
 </div>
