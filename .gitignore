@@ -1,0 +1,4 @@
+/server/node_modules
+/client/recipe-haven/node_modules
+/client/recipe-haven/.vscode
+/client/recipe-haven/.angular
