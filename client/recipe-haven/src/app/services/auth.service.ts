@@ -27,6 +27,14 @@ export class AuthService {
     return !!localStorage.getItem('token'); // temporary
   }
 
+  logout() {
+    localStorage.removeItem('token');
+  }
+
+  getAuthToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
   private handleError(error: any): Observable<never> {
     console.error('API error:', error);
     return throwError(() => error);

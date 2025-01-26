@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'navbar',
@@ -9,9 +10,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   logout() {
-    console.log(this.authService.isLoggedIn);
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

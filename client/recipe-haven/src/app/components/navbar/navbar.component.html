@@ -1,7 +1,11 @@
 <nav class="navbar">
-  <div class="navbar-brand">Recipe App</div>
+  <div class="navbar-brand">
+    <img class="logo" src="assets/images/recipe-haven.png" alt="" />
+    <a routerLink="/dashboard" class="app-brand" style="vertical-align: top"
+      >Recipe Haven</a
+    >
+  </div>
   <ul class="navbar-links">
-    <li><a routerLink="/">Home</a></li>
     <li *ngIf="!authService.isLoggedIn()"><a routerLink="/login">Login</a></li>
     <li *ngIf="!authService.isLoggedIn()">
       <a routerLink="/signup">Signup</a>

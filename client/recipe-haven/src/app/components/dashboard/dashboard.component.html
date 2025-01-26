@@ -1,1 +1,27 @@
-<p>dashboard works!</p>
+<h2>Recipes</h2>
+
+<input
+  type="text"
+  [(ngModel)]="searchQuery"
+  placeholder="Search by title or ingredient"
+  (input)="searchRecipes()"
+/>
+
+<ul>
+  <li *ngFor="let recipe of recipes">
+    <h3>{{ recipe.title }}</h3>
+    <button (click)="editRecipe(recipe)">Edit</button>
+    <button (click)="deleteRecipe(recipe._id!)">Delete</button>
+  </li>
+</ul>
+
+<h2>Create New Recipe</h2>
+<input type="text" [(ngModel)]="newRecipe.title" placeholder="Title" />
+<button (click)="createRecipe()">Create</button>
+
+<div *ngIf="editingRecipe">
+  <h2>Edit Recipe</h2>
+  <input type="text" [(ngModel)]="editingRecipe.title" placeholder="Title" />
+  <button (click)="updateRecipe()">Update</button>
+  <button (click)="editingRecipe = null">Cancel</button>
+</div>
