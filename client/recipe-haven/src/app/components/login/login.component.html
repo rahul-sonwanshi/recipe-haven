@@ -1,22 +1,24 @@
 <div class="login-container">
-  <h2>Login</h2>
-  <form (ngSubmit)="login()">
-    <input
-      type="text"
-      placeholder="Username"
-      [(ngModel)]="username"
-      name="username"
-      required
-    />
-    <input
-      type="password"
-      placeholder="Password"
-      [(ngModel)]="password"
-      name="password"
-      required
-    />
-    <button type="submit">Login</button>
-    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-    <p>Don't have an account? <a routerLink="/signup">Sign Up</a></p>
-  </form>
+  <div class="login-wrapper">
+    <h2>Login</h2>
+    <form class="login-form" (ngSubmit)="login()">
+      <input
+        type="text"
+        placeholder="Username"
+        [(ngModel)]="username"
+        name="username"
+        required
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        [(ngModel)]="password"
+        name="password"
+        required
+      />
+      <button type="submit" class="green-btn">Login</button>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <p>Don't have an account? <a routerLink="/signup">Sign Up</a></p>
+    </form>
+  </div>
 </div>

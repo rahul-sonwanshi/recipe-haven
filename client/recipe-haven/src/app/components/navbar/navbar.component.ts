@@ -12,6 +12,18 @@ import { Router } from '@angular/router';
 export class NavbarComponent {
   constructor(public authService: AuthService, private router: Router) {}
 
+  goToDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  goToSignUp() {
+    this.router.navigate(['/signup']);
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);

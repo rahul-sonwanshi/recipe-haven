@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'; // Import Router
+import { Router, RouterModule } from '@angular/router'; // Import Router
 import { AuthService } from '../../services/auth.service'; // Import AuthService
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
