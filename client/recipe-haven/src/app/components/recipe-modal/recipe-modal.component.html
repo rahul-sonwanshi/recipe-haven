@@ -1,0 +1,46 @@
+<div class="modal-overlay">
+  <div class="modal-content">
+    <h2>{{ recipe ? "Edit Recipe" : "Add Recipe" }}</h2>
+    <form [formGroup]="recipeForm" (ngSubmit)="onSave()">
+      <input type="text" placeholder="Title" formControlName="title" />
+      <input
+        type="text"
+        placeholder="Image URL"
+        formControlName="featuredImage"
+      />
+
+      <h3>Ingredients</h3>
+      <div formArrayName="ingredients">
+        <div
+          *ngFor="let ingredient of ingredients.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <input
+            type="text"
+            placeholder="Ingredient Name"
+            formControlName="name"
+          />
+          <input
+            type="text"
+            placeholder="Quantity"
+            formControlName="quantity"
+          />
+          <button type="button" (click)="removeIngredient(i)">Remove</button>
+        </div>
+        <button type="button" (click)="addIngredient()">Add Ingredient</button>
+      </div>
+
+      <h3>Steps</h3>
+      <div formArrayName="steps">
+        <div *ngFor="let step of steps.controls; let i = index">
+          <textarea placeholder="Step" [formControlName]="i"></textarea>
+          <button type="button" (click)="removeStep(i)">Remove</button>
+        </div>
+        <button type="button" (click)="addStep()">Add Step</button>
+      </div>
+
+      <button type="submit">Save</button>
+      <button type="button" (click)="onClose()">Cancel</button>
+    </form>
+  </div>
+</div>

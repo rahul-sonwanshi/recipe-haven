@@ -15,7 +15,7 @@
       <span *ngFor="let ingredient of recipe.ingredients">{{
         ingredient
       }}</span>
-      <button (click)="editRecipe(recipe)">Edit</button>
+      <button (click)="openModal(recipe)">Edit</button>
       <button (click)="deleteRecipe(recipe._id!)">Delete</button>
     </li>
   </ul>
@@ -30,4 +30,11 @@
     <button (click)="updateRecipe()">Update</button>
     <button (click)="editingRecipe = null">Cancel</button>
   </div>
+
+  <recipe-modal
+    *ngIf="showModal"
+    [recipe]="selectedRecipe"
+    (closeModal)="closeModal()"
+    (saveRecipe)="saveRecipe($event)"
+  ></recipe-modal>
 </div>

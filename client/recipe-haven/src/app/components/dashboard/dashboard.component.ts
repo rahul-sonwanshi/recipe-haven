@@ -3,10 +3,11 @@ import { Recipe } from '../../interfaces/common.interface';
 import { RecipeService } from '../../services/recipe.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RecipeModalComponent } from '../recipe-modal/recipe-modal.component';
 
 @Component({
   selector: 'dashboard',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RecipeModalComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -15,6 +16,8 @@ export class DashboardComponent implements OnInit {
   searchQuery: string = '';
   newRecipe: Recipe = { title: '', ingredients: [], steps: [] };
   editingRecipe: Recipe | null = null;
+  showModal: boolean = false;
+  selectedRecipe: Recipe | null = null;
   constructor(private recipeService: RecipeService) {}
 
   ngOnInit(): void {
@@ -25,6 +28,30 @@ export class DashboardComponent implements OnInit {
     this.recipeService.getRecipes().subscribe((recipes: Recipe[]) => {
       this.recipes = recipes;
     });
+  }
+
+  openModal(recipe?: Recipe) {
+    this.selectedRecipe = recipe ? { ...recipe } : null;
+    this.showModal = true;
+    console.log('what is happening?', this.showModal);
+  }
+
+  closeModal() {
+    this.showModal = false;
+    this.selectedRecipe = null;
+  }
+
+  saveRecipe(recipe: Recipe) {
+    if (recipe._id) {
+      this.recipeService
+        .updateRecipe(recipe, recipe._id)
+        .subscribe(() => this.loadRecipes());
+    } else {
+      this.recipeService
+        .createRecipe(recipe)
+        .subscribe(() => this.loadRecipes());
+    }
+    this.closeModal();
   }
 
   createRecipe() {
@@ -40,15 +67,18 @@ export class DashboardComponent implements OnInit {
 
   updateRecipe() {
     if (this.editingRecipe) {
-      this.recipeService.updateRecipe(this.editingRecipe).subscribe(() => {
-        this.editingRecipe = null;
-        this.loadRecipes();
-      });
+      let recipeId = this.editingRecipe._id;
+      delete this.editingRecipe._id;
+      this.recipeService
+        .updateRecipe(this.editingRecipe, recipeId)
+        .subscribe(() => {
+          this.editingRecipe = null;
+          this.loadRecipes();
+        });
     }
   }
 
   deleteRecipe(recipeId: string) {
-    console.log(recipeId, 'wah');
     this.recipeService.deleteRecipe(recipeId).subscribe(() => {
       this.loadRecipes();
     });

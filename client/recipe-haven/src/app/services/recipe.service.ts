@@ -30,9 +30,9 @@ export class RecipeService {
     return this.http.post<Recipe>(this.apiUrl, recipeData, { headers });
   }
 
-  updateRecipe(recipe: Recipe): Observable<any> {
+  updateRecipe(recipe: Recipe, recipeId: string | undefined): Observable<any> {
     const headers = this.generateHeaders();
-    return this.http.put(`${this.apiUrl}/${recipe._id}`, recipe, { headers });
+    return this.http.put(`${this.apiUrl}/${recipeId}`, recipe, { headers });
   }
 
   deleteRecipe(recipeId: string): Observable<any> {
