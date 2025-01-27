@@ -4,17 +4,23 @@ import { RecipeService } from '../../services/recipe.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RecipeModalComponent } from '../recipe-modal/recipe-modal.component';
+import { SafeUrlPipe } from '../../pipes/safe-url.pipe';
 
 @Component({
   selector: 'dashboard',
-  imports: [FormsModule, CommonModule, RecipeModalComponent],
+  imports: [FormsModule, CommonModule, RecipeModalComponent, SafeUrlPipe],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
   recipes: Recipe[] = [];
   searchQuery: string = '';
-  newRecipe: Recipe = { title: '', ingredients: [], steps: [] };
+  newRecipe: Recipe = {
+    title: '',
+    featuredImage: 'assets/images/defaultRecipe.jpg',
+    ingredients: [],
+    steps: [],
+  };
   editingRecipe: Recipe | null = null;
   showModal: boolean = false;
   selectedRecipe: Recipe | null = null;
@@ -33,7 +39,6 @@ export class DashboardComponent implements OnInit {
   openModal(recipe?: Recipe) {
     this.selectedRecipe = recipe ? { ...recipe } : null;
     this.showModal = true;
-    console.log('what is happening?', this.showModal);
   }
 
   closeModal() {
@@ -56,7 +61,12 @@ export class DashboardComponent implements OnInit {
 
   createRecipe() {
     this.recipeService.createRecipe(this.newRecipe).subscribe(() => {
-      this.newRecipe = { title: '', ingredients: [], steps: [] };
+      this.newRecipe = {
+        title: '',
+        featuredImage: 'assets/images/defaultRecipe.jpg',
+        ingredients: [],
+        steps: [],
+      };
       this.loadRecipes();
     });
   }
@@ -67,10 +77,8 @@ export class DashboardComponent implements OnInit {
 
   updateRecipe() {
     if (this.editingRecipe) {
-      let recipeId = this.editingRecipe._id;
-      delete this.editingRecipe._id;
       this.recipeService
-        .updateRecipe(this.editingRecipe, recipeId)
+        .updateRecipe(this.editingRecipe, this.editingRecipe._id)
         .subscribe(() => {
           this.editingRecipe = null;
           this.loadRecipes();

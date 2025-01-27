@@ -1,19 +1,22 @@
 <nav class="navbar">
   <div class="navbar-brand">
     <img class="logo" src="assets/images/recipe-haven.png" alt="" />
-    <a (click)="goToDashboard()" class="app-brand" style="vertical-align: top"
+    <a
+      routerLink="/dashboard"
+      class="app-brand redirect-link"
+      style="vertical-align: top; text-decoration: none; color: black"
       >Recipe Haven</a
     >
   </div>
   <ul class="navbar-links">
     <li *ngIf="!authService.isLoggedIn()">
-      <a (click)="goToLogin()">Login</a>
+      <a class="redirect-link" routerLink="/login">Login</a>
     </li>
     <li *ngIf="!authService.isLoggedIn()">
-      <a (click)="goToSignUp()">Signup</a>
+      <a class="redirect-link" routerLink="/signup">Signup</a>
     </li>
     <li *ngIf="authService.isLoggedIn()">
-      <a (click)="goToDashboard()">Dashboard</a>
+      <a class="redirect-link" routerLink="/dashboard">Dashboard</a>
     </li>
     <li *ngIf="authService.isLoggedIn()">
       <button class="red-btn" (click)="logout()">Logout</button>

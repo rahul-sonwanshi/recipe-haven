@@ -25,22 +25,47 @@
             placeholder="Quantity"
             formControlName="quantity"
           />
-          <button type="button" (click)="removeIngredient(i)">Remove</button>
+          <div style="display: flex; justify-content: end; padding: 10px">
+            <button
+              type="button"
+              (click)="removeIngredient(i)"
+              class="btn red-btn"
+            >
+              Remove
+            </button>
+          </div>
         </div>
-        <button type="button" (click)="addIngredient()">Add Ingredient</button>
+        <button type="button" class="btn green-btn" (click)="addIngredient()">
+          Add Ingredient
+        </button>
       </div>
 
       <h3>Steps</h3>
       <div formArrayName="steps">
         <div *ngFor="let step of steps.controls; let i = index">
           <textarea placeholder="Step" [formControlName]="i"></textarea>
-          <button type="button" (click)="removeStep(i)">Remove</button>
+          <div style="display: flex; justify-content: end; padding: 10px">
+            <button type="button" (click)="removeStep(i)" class="btn red-btn">
+              Remove
+            </button>
+          </div>
         </div>
-        <button type="button" (click)="addStep()">Add Step</button>
+        <button type="button" (click)="addStep()" class="btn green-btn">
+          Add Step
+        </button>
       </div>
 
-      <button type="submit">Save</button>
-      <button type="button" (click)="onClose()">Cancel</button>
+      <button type="submit" style="margin-right: 10px" class="btn green-btn">
+        Save Recipe
+      </button>
+      <button
+        type="button"
+        style="margin-right: 10px"
+        class="btn red-btn"
+        (click)="onClose()"
+      >
+        Cancel
+      </button>
     </form>
   </div>
 </div>

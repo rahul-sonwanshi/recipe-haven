@@ -43,23 +43,42 @@
   resize: vertical;
 }
 
-.modal-content button {
-  background-color: #4caf50;
+.btn {
   border: none;
   color: white;
-  padding: 10px 16px;
-  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 10px;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
 }
 
-.modal-content button[type="button"] {
-  background-color: #f44336;
+.green-btn {
+  background-color: green;
 }
+
+.red-btn {
+  background-color: red;
+}
+
+// .modal-content button {
+//   background-color: #4caf50;
+//   border: none;
+//   color: white;
+//   padding: 10px 16px;
+//   text-align: center;
+//   text-decoration: none;
+//   display: inline-block;
+//   font-size: 16px;
+//   margin: 4px 2px;
+//   cursor: pointer;
+//   border-radius: 4px;
+// }
+
+// .modal-content button[type="button"] {
+//   background-color: #f44336;
+// }
 
 .modal-content button:hover {
   opacity: 0.8;

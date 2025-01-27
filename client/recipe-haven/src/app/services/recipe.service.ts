@@ -31,6 +31,7 @@ export class RecipeService {
   }
 
   updateRecipe(recipe: Recipe, recipeId: string | undefined): Observable<any> {
+    delete recipe._id;
     const headers = this.generateHeaders();
     return this.http.put(`${this.apiUrl}/${recipeId}`, recipe, { headers });
   }

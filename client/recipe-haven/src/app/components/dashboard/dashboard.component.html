@@ -7,29 +7,35 @@
     placeholder="Search Recipes"
     (input)="searchRecipes()"
   />
+  <button class="btn green-btn" (click)="openModal()">+</button>
 
   <ul>
     <li class="recipe-item" *ngFor="let recipe of recipes">
-      <img src="assets/images/defaultRecipe.jpg" alt="" />
-      <h3>{{ recipe.title }}</h3>
-      <span *ngFor="let ingredient of recipe.ingredients">{{
-        ingredient
-      }}</span>
-      <button (click)="openModal(recipe)">Edit</button>
-      <button (click)="deleteRecipe(recipe._id!)">Delete</button>
+      <div class="recipe-content-wrapper">
+        <img [src]="recipe.featuredImage | safeUrl" alt="" />
+        <h2>{{ recipe.title }}</h2>
+        <span>
+          <b>Ingredients: </b>
+          <span *ngFor="let ingredient of recipe.ingredients; let i = index"
+            >{{ ingredient.name }}
+          </span>
+        </span>
+      </div>
+
+      <div class="recipe-action-items">
+        <img
+          class="action-btn"
+          src="assets/images/edit.svg"
+          (click)="openModal(recipe)"
+        />
+        <img
+          class="action-btn"
+          src="assets/images/delete.svg"
+          (click)="deleteRecipe(recipe._id!)"
+        />
+      </div>
     </li>
   </ul>
-
-  <h2>Create New Recipe</h2>
-  <input type="text" [(ngModel)]="newRecipe.title" placeholder="Title" />
-  <button (click)="createRecipe()">Create</button>
-
-  <div *ngIf="editingRecipe">
-    <h2>Edit Recipe</h2>
-    <input type="text" [(ngModel)]="editingRecipe.title" placeholder="Title" />
-    <button (click)="updateRecipe()">Update</button>
-    <button (click)="editingRecipe = null">Cancel</button>
-  </div>
 
   <recipe-modal
     *ngIf="showModal"

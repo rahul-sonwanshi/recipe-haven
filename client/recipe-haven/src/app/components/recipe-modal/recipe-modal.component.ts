@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
   selector: 'recipe-modal',
   templateUrl: './recipe-modal.component.html',
   imports: [FormsModule, ReactiveFormsModule, CommonModule],
-  styleUrls: ['./recipe-modal.component.css'],
+  styleUrls: ['./recipe-modal.component.scss'],
 })
 export class RecipeModalComponent {
   @Input() recipe: Recipe | null = null; // Input for editing, null for adding

@@ -10,7 +10,7 @@ export interface Rating {
 export interface Recipe {
   _id?: string;
   title: string;
-  featuredImage?: string;
+  featuredImage: string;
   ingredients: Ingredient[];
   steps: string[];
   ratings?: Rating[];
