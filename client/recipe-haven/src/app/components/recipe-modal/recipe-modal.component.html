@@ -1,5 +1,11 @@
-<div class="modal-overlay">
-  <div class="modal-content">
+<div class="modal-overlay" (click)="closeModalParent($event)">
+  <div class="modal-content" *ngIf="!isViewOnlyRecipe">
+    <!-- close btn on top right -->
+    <img
+      class="action-btn"
+      src="assets/images/delete.svg"
+      (click)="onClose()"
+    />
     <h2>{{ recipe ? "Edit Recipe" : "Add Recipe" }}</h2>
     <form [formGroup]="recipeForm" (ngSubmit)="onSave()">
       <input type="text" placeholder="Title" formControlName="title" />
@@ -67,5 +73,41 @@
         Cancel
       </button>
     </form>
+  </div>
+
+  <div class="modal-content" *ngIf="isViewOnlyRecipe && recipe != null">
+    <img
+      style="position: absolute; right: 10px"
+      class="action-btn"
+      src="assets/images/close.svg"
+      (click)="onClose()"
+    />
+    <h1>{{ recipe.title }}</h1>
+    <img style="max-width: 100%" [src]="recipe.featuredImage" alt="" />
+    <div>
+      <div style="text-align: left">
+        <h3>Ingredients:</h3>
+        <span *ngFor="let ingredient of recipe.ingredients; let i = index"
+          >{{ ingredient.name }}
+        </span>
+      </div>
+    </div>
+    <div style="margin-top: 10px">
+      <span style="text-align: left">
+        <div style="text-align: left; margin-bottom: 10px"><h2>Steps:</h2></div>
+        <div
+          style="
+            text-align: left;
+            cursor: pointer;
+            font-size: 18px;
+            margin-bottom: 10px;
+          "
+          *ngFor="let step of recipe.steps; let i = index"
+          (click)="toggleComplete($event)"
+        >
+          {{ step }}
+        </div>
+      </span>
+    </div>
   </div>
 </div>

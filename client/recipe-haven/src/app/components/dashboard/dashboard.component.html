@@ -10,7 +10,11 @@
   <button class="btn green-btn" (click)="openModal()">+</button>
 
   <ul>
-    <li class="recipe-item" *ngFor="let recipe of recipes">
+    <li
+      class="recipe-item"
+      *ngFor="let recipe of recipes"
+      (click)="openModal(recipe, true)"
+    >
       <div class="recipe-content-wrapper">
         <img [src]="recipe.featuredImage | safeUrl" alt="" />
         <h2>{{ recipe.title }}</h2>
@@ -26,12 +30,12 @@
         <img
           class="action-btn"
           src="assets/images/edit.svg"
-          (click)="openModal(recipe)"
+          (click)="openModal(recipe); $event.stopPropagation()"
         />
         <img
           class="action-btn"
           src="assets/images/delete.svg"
-          (click)="deleteRecipe(recipe._id!)"
+          (click)="deleteRecipe(recipe._id!); $event.stopPropagation()"
         />
       </div>
     </li>
@@ -40,6 +44,7 @@
   <recipe-modal
     *ngIf="showModal"
     [recipe]="selectedRecipe"
+    [isViewOnlyRecipe]="isViewOnlyRecipe"
     (closeModal)="closeModal()"
     (saveRecipe)="saveRecipe($event)"
   ></recipe-modal>

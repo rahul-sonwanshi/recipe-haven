@@ -21,6 +21,7 @@
   max-width: 600px;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 
 .modal-content h2 {
@@ -62,23 +63,17 @@
   background-color: red;
 }
 
-// .modal-content button {
-//   background-color: #4caf50;
-//   border: none;
-//   color: white;
-//   padding: 10px 16px;
-//   text-align: center;
-//   text-decoration: none;
-//   display: inline-block;
-//   font-size: 16px;
-//   margin: 4px 2px;
-//   cursor: pointer;
-//   border-radius: 4px;
-// }
+.completed {
+  text-decoration: line-through;
+}
 
-// .modal-content button[type="button"] {
-//   background-color: #f44336;
-// }
+.action-btn {
+  width: 40px;
+  border-radius: 5px;
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 10px;
+}
 
 .modal-content button:hover {
   opacity: 0.8;

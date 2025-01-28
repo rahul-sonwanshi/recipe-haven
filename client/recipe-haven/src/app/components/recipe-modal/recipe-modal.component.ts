@@ -20,7 +20,7 @@ export class RecipeModalComponent {
   @Input() recipe: Recipe | null = null; // Input for editing, null for adding
   @Output() closeModal = new EventEmitter<void>();
   @Output() saveRecipe = new EventEmitter<Recipe>();
-
+  @Input() isViewOnlyRecipe: boolean = false;
   recipeForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -33,6 +33,14 @@ export class RecipeModalComponent {
   }
 
   ngOnInit() {
+    /* Init the recipeForm */
+    this.recipeForm = this.fb.group({
+      title: ['', Validators.required],
+      featuredImage: [''],
+      ingredients: this.fb.array([]),
+      steps: this.fb.array([]),
+    });
+
     if (this.recipe) {
       this.recipeForm.patchValue({
         title: this.recipe.title,
@@ -82,11 +90,26 @@ export class RecipeModalComponent {
       const recipeToSave = { ...this.recipe, ...this.recipeForm.value };
       this.saveRecipe.emit(recipeToSave);
       this.recipeForm.reset();
+      this.isViewOnlyRecipe = false;
     }
   }
 
   onClose() {
     this.closeModal.emit();
     this.recipeForm.reset();
+    this.isViewOnlyRecipe = false;
+  }
+
+  closeModalParent(event: any) {
+    // Check if outside was clicked
+    if (event.target === event.currentTarget) {
+      this.onClose();
+    }
+  }
+
+  toggleComplete(e: Event) {
+    if (e.target instanceof HTMLElement) {
+      e.target.classList.toggle('completed');
+    }
   }
 }

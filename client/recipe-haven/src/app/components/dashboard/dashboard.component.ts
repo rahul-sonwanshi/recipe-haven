@@ -17,13 +17,14 @@ export class DashboardComponent implements OnInit {
   searchQuery: string = '';
   newRecipe: Recipe = {
     title: '',
-    featuredImage: 'assets/images/defaultRecipe.jpg',
+    featuredImage: 'https://i.imgur.com/aEVwgqx.jpeg',
     ingredients: [],
     steps: [],
   };
   editingRecipe: Recipe | null = null;
   showModal: boolean = false;
   selectedRecipe: Recipe | null = null;
+  public isViewOnlyRecipe: boolean = false;
   constructor(private recipeService: RecipeService) {}
 
   ngOnInit(): void {
@@ -36,9 +37,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  openModal(recipe?: Recipe) {
+  openModal(recipe?: Recipe, isViewOnlyRecipe = false) {
     this.selectedRecipe = recipe ? { ...recipe } : null;
     this.showModal = true;
+    this.isViewOnlyRecipe = isViewOnlyRecipe;
   }
 
   closeModal() {
@@ -47,6 +49,10 @@ export class DashboardComponent implements OnInit {
   }
 
   saveRecipe(recipe: Recipe) {
+    /* Check if the image url is empty */
+    if (!recipe.featuredImage) {
+      recipe.featuredImage = 'https://i.imgur.com/aEVwgqx.jpeg'; // replace this with actual stored image
+    }
     if (recipe._id) {
       this.recipeService
         .updateRecipe(recipe, recipe._id)
@@ -63,7 +69,7 @@ export class DashboardComponent implements OnInit {
     this.recipeService.createRecipe(this.newRecipe).subscribe(() => {
       this.newRecipe = {
         title: '',
-        featuredImage: 'assets/images/defaultRecipe.jpg',
+        featuredImage: 'https://i.imgur.com/aEVwgqx.jpeg',
         ingredients: [],
         steps: [],
       };
