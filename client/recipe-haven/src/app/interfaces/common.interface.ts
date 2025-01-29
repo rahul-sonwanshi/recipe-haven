@@ -17,4 +17,8 @@ export interface Recipe {
   averageRating?: number;
   createdAt?: Date;
   updatedAt?: Date;
+  userRating?: number;
+}
+export interface DecodedToken {
+  userId: string;
 }

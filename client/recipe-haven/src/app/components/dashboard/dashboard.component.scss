@@ -53,9 +53,9 @@ ul {
 
 .recipe-action-items {
   display: flex;
-  align-items: flex-end;
+  // align-items: flex-end;
   width: 100%;
-  justify-content: end;
+  justify-content: space-between;
   padding-bottom: 10px;
 }
 
@@ -73,4 +73,21 @@ ul {
 
 .green-btn {
   background-color: green;
+}
+
+/* Rating system */
+.rating {
+  display: inline-flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.star {
+  font-size: 2em;
+  color: gray;
+  cursor: pointer;
+}
+
+.star.filled {
+  color: gold;
 }

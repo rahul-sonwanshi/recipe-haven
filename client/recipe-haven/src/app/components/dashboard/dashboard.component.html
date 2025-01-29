@@ -27,16 +27,39 @@
       </div>
 
       <div class="recipe-action-items">
-        <img
-          class="action-btn"
-          src="assets/images/edit.svg"
-          (click)="openModal(recipe); $event.stopPropagation()"
-        />
-        <img
-          class="action-btn"
-          src="assets/images/delete.svg"
-          (click)="deleteRecipe(recipe._id!); $event.stopPropagation()"
-        />
+        <div class="rating">
+          <div>
+            <span
+              *ngFor="let i of [1, 2, 3, 4, 5]"
+              class="star"
+              [class.filled]="
+                i <=
+                (hoverRating > 0
+                  ? hoverRating
+                  : recipe.userRating || hoverRating)
+              "
+              (mouseenter)="setHoverRating(recipe, i); $event.stopPropagation()"
+              (mouseleave)="resetHoverRating(recipe); $event.stopPropagation()"
+              (click)="rateRecipe(recipe, i); $event.stopPropagation()"
+            >
+              ★
+            </span>
+          </div>
+
+          <div>Average Rating {{ recipe.averageRating }}</div>
+        </div>
+        <div>
+          <img
+            class="action-btn"
+            src="assets/images/edit.svg"
+            (click)="openModal(recipe); $event.stopPropagation()"
+          />
+          <img
+            class="action-btn"
+            src="assets/images/delete.svg"
+            (click)="deleteRecipe(recipe._id!); $event.stopPropagation()"
+          />
+        </div>
       </div>
     </li>
   </ul>

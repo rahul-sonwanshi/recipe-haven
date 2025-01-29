@@ -173,24 +173,40 @@ connectToDatabase().then(() => {
   app.post("/api/recipes/:id/rate", verifyToken, async (req, res) => {
     try {
       const recipeId = new ObjectId(req.params.id);
-      const { userId, rating } = req.body;
+      let { userId, rating } = req.body;
+
+      if (typeof userId === "string") {
+        userId = new ObjectId(userId);
+      }
+
+      if (!(userId instanceof ObjectId)) {
+        userId = new ObjectId(userId);
+      }
+
+      await recipesCollection.updateOne(
+        { _id: recipeId },
+        { $pull: { ratings: { userId: userId } } }
+      );
+
       const updatedRecipe = await recipesCollection.findOneAndUpdate(
         { _id: recipeId },
-        { $push: { ratings: { userId: new ObjectId(userId), rating } } },
+        { $push: { ratings: { userId: userId, rating } } },
         { returnDocument: "after" }
       );
 
-      if (!updatedRecipe.value) {
+      console.log(updatedRecipe, "Rahul");
+      if (!updatedRecipe._id) {
         return res.status(404).json({ message: "Recipe not found" });
       }
       const averageRating =
-        updatedRecipe.value.ratings.reduce((sum, r) => sum + r.rating, 0) /
-        updatedRecipe.value.ratings.length;
+        updatedRecipe.ratings.reduce((sum, r) => sum + r.rating, 0) /
+        updatedRecipe.ratings.length;
       await recipesCollection.updateOne(
         { _id: recipeId },
         { $set: { averageRating } }
       );
-      res.json(updatedRecipe.value);
+      updatedRecipe.averageRating = averageRating;
+      res.json(updatedRecipe);
     } catch (error) {
       console.error("Error rating recipe:", error);
       res.status(500).json({ error: "Failed to rate recipe" });

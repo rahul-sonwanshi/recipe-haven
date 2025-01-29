@@ -46,10 +46,15 @@ export class RecipeService {
     userId: string,
     rating: number
   ): Observable<Recipe> {
-    return this.http.post<Recipe>(`${this.apiUrl}/${recipeId}/rate`, {
-      userId,
-      rating,
-    });
+    const headers = this.generateHeaders();
+    return this.http.post<Recipe>(
+      `${this.apiUrl}/${recipeId}/rate`,
+      {
+        userId,
+        rating,
+      },
+      { headers }
+    );
   }
 
   searchRecipes(query: string): Observable<Recipe[]> {
